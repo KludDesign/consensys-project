@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const TerserPlugin = require("terser-webpack-plugin");
 // const knex = require('knex');
 // const knexfile = require('./knexfile');
 
@@ -23,18 +22,6 @@ const webpackConfig = [{
     externals: [
         nodeExternals()
     ],
-
-    optimization: {
-        minimize: !isLocal,
-        minimizer: [
-            new TerserPlugin({
-                terserOptions: {
-                    keep_classnames: true
-                },
-                extractComments: false
-            })
-        ]
-    },
 
     entry: {
         server: `${PATHS.src}/main.ts`

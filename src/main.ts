@@ -4,7 +4,7 @@ import * as dotenv from "dotenv"
 // Init dotenv
 dotenv.config()
 
-const port = 3000
+const port = 8080
 const hostname = "localhost"
 
 const app = express()
@@ -14,7 +14,7 @@ app.use(express.json())
 app.use("/", express.static("./dist/front"))
 
 router.get("/", (req, res) => {
-	res.json({ success: true, message: "WindSpot app is running !", data: null })
+	res.json({ success: true, message: "App is running !", data: null })
 })
 
 // Mount all back routes on /api path
