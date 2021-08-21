@@ -13,15 +13,6 @@
     "sourceMap": true,
     "strict": true,
     "experimentalDecorators": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": [
-        "./*"
-      ],
-      "@/*": [
-        "./*"
-      ]
-    },
     "types": [
       "@nuxt/types",
       "@nuxtjs/axios",
