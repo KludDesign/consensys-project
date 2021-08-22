@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
-import User from './routes/User'
+import User from './User'
 
 declare module 'vue/types/vue' {
   interface Vue {

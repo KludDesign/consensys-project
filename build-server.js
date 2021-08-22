@@ -1,12 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-// const knex = require('knex');
-// const knexfile = require('./knexfile');
+const knex = require('knex');
+const knexfile = require('./knexfile');
 
 const isLocal = process.env.NODE_ENV === 'development';
 const isWatching = process.argv[2] === '--watch';
-// const knexEnv = isLocal ? 'development' : 'production';
+const knexEnv = 'development';
 
 const PATHS = {
     src: path.join(__dirname, 'src'),
@@ -78,16 +78,17 @@ webpack(webpackConfig, (err, stats) => {
     console.log('[MOB] Build app complete.\n');
 
     // Run latest migrations
-    // const configOptions = knexfile[knexEnv];
-    // knex(configOptions).migrate.latest()
-    // .then(() => {
-    //     console.log('[MOB] Migrations complete.\n');
-    //     process.exit();
-    // })
-    // .catch(() => {
-    //     console.log('[MOB] Unable to DB migrate.');
-    //     process.exit(1);
-    // });
-
+    if (!isWatching) {
+        const configOptions = knexfile[knexEnv];
+        knex(configOptions).migrate.latest()
+            .then(() => {
+                console.log('[MOB] Migrations complete.\n');
+                process.exit();
+            })
+            .catch((err) => {
+                console.log(`[MOB] Error: ${err}`);
+                process.exit(1);
+            });
+    }
 });
 

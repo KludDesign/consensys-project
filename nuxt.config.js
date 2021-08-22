@@ -49,6 +49,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -65,6 +66,23 @@ export default {
     theme: {
       dark: false
     }
+  },
+
+  router: {
+    middleware: ['auth']
+  },
+
+  // @nuxtjs/auth-next: https://auth.nuxtjs.org/
+  auth: {
+    strategies: {
+      cookie: {
+        endpoints: {
+          login: { url: '/session', method: 'post' },
+          user: false
+        }
+      }
+    },
+    localStorage: false
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -1,4 +1,4 @@
-import IHttp from "../IHttp"
+import IHttp from "./IHttp"
 import { AxiosRequestConfig, AxiosInstance } from "axios"
 
 export default class User {

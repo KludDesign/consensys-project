@@ -1,26 +1,25 @@
-import express from "express"
-import * as dotenv from "dotenv"
+import AppContext from "./AppContext"
+import SessionController from "./controllers/SessionController"
+import UserService from "./services/UserService"
 
-// Init dotenv
-dotenv.config()
+const ctx = new AppContext()
 
-const port = 8080
-const hostname = "localhost"
+// Services
+const userSvc = new UserService(ctx)
 
-const app = express()
-const router = express.Router()
+// Controllers
+const sessionCtrl = new SessionController(ctx, userSvc)
 
-app.use(express.json())
-app.use("/", express.static("./dist/front"))
-
-router.get("/", (req, res) => {
-	res.json({ success: true, message: "App is running !", data: null })
+ctx.router.get("/", (req, res) => {
+	res.json({ success: true, message: "app is running !", data: null })
 })
 
-// Mount all back routes on /api path
-app.use("/api", router)
+// Check if knex is running
+ctx.db.raw('select 1+1 as result').then(() => {
+	console.log("Knex is running...")
+});
 
 // Start express app to serve front
-app.listen(port, hostname, () => {
-	console.log(`app is running on port ${port}`)
+ctx.app.listen(ctx.port, ctx.hostname, () => {
+	console.log(`APP is running on port ${ctx.hostname}:${ctx.port}...`)
 })
