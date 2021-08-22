@@ -38,7 +38,7 @@ export default class SessionController {
             if (user && user.password === password) {
                 // TODO: user.id to be encrypted
                 res.cookie("user_token", user.id, { 
-                    expires: new Date(Date.now() + 3600000)
+                    expires: new Date(Date.now() + 8 * 3600000)
                 })
                 res.status(200)
                 res.json(null)
@@ -59,7 +59,7 @@ export default class SessionController {
 			const userToken: string = req.cookies.user_token
 
             if (!userToken) {
-                res.status(400)
+                res.status(204)
                 res.statusMessage = "Cookie 'user_token' in not set"
                 res.json(null)
                 return

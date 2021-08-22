@@ -1,14 +1,18 @@
 import AppContext from "./AppContext"
+import RoomController from "./controllers/RoomController"
 import SessionController from "./controllers/SessionController"
+import RoomService from "./services/RoomService"
 import UserService from "./services/UserService"
 
 const ctx = new AppContext()
 
 // Services
 const userSvc = new UserService(ctx)
+const roomSvc = new RoomService(ctx)
 
 // Controllers
 const sessionCtrl = new SessionController(ctx, userSvc)
+const roomCtrl = new RoomController(ctx, roomSvc)
 
 ctx.router.get("/", (req, res) => {
 	res.json({ success: true, message: "app is running !", data: null })

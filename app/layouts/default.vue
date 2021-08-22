@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <v-container>
+      <v-container grid-list-xl>
         <nuxt />
       </v-container>
     </v-main>

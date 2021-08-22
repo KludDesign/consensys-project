@@ -10,7 +10,7 @@ export default class Index extends VuexModule {
         this._user = value
     }
 
-    @Action({ commit: 'setUser' })	
+    @Action({ commit: 'setUser', rawError: true })	
     async actionUser(): Promise<object> {
         const currentUser = await Vue.prototype.$api.user.getUserByToken()
         if (currentUser?.data) {
