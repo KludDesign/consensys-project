@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import axios from 'axios'
+import { Plugin } from '@nuxt/types'
 import User from './User'
 
 declare module 'vue/types/vue' {
@@ -10,6 +10,10 @@ declare module 'vue/types/vue' {
   }
 }
 
-Vue.prototype.$api = {
-  user: new User(axios)
+const apiPlugin: Plugin = (context) => {
+  Vue.prototype.$api = {
+    user: new User(context.$axios)
+  }
 }
+
+export default apiPlugin

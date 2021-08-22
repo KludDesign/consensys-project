@@ -41,9 +41,10 @@ export default class Login extends Vue {
 
 	private async userLogin() {
 		try {
-			let response = await this.$auth.loginWith('cookie', { data: this.user })
+			const response = await this.$auth.loginWith('cookie', { data: this.user })
 
 			if(this.$auth.loggedIn) {
+				// await this.$store.dispatch("actionUser")
 				this.$router.push("/")
 			}
 		} catch (err) {

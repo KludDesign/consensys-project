@@ -17,7 +17,7 @@ export default class SessionController {
                 this._login(req, res)
             })
             .get((req, res) => {
-                this._getUser(req, res)
+                this._getUserByToken(req, res)
             })
 	}
 
@@ -54,7 +54,7 @@ export default class SessionController {
 		}
 	}
 
-    private async _getUser(req: express.Request, res: express.Response): Promise<void> {
+    private async _getUserByToken(req: express.Request, res: express.Response): Promise<void> {
 		try {
 			const userToken: string = req.cookies.user_token
 
@@ -69,7 +69,7 @@ export default class SessionController {
             const user = await this._userSvc.getUserById(Number(userToken))
 
             res.status(200)
-			res.json({ data: user})
+			res.json(user)
 		} catch (err) {
             console.error(err);
 			res.status(500).json({ error_message: err.message })

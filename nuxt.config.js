@@ -69,7 +69,7 @@ export default {
   },
 
   router: {
-    middleware: ['auth']
+    middleware: ['auth', 'user']
   },
 
   // @nuxtjs/auth-next: https://auth.nuxtjs.org/

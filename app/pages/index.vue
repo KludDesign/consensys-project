@@ -3,7 +3,7 @@
     <v-col cols="12" sm="8" md="6">
       <v-card>
         <v-card-title class="headline">
-          Welcome to the WORLD + Nuxt.js template
+          Welcome {{ $store.getters.user.first_name }}
         </v-card-title>
         <v-card-text>
           <p>
@@ -83,6 +83,6 @@ import { Component, Vue } from "vue-property-decorator"
 	name: "Login"
 })
 export default class Index extends Vue {
-
+ 
 }
 </script>
