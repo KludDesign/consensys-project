@@ -3,7 +3,6 @@ import AppContext from "../AppContext"
 import UserService from "../services/UserService"
 
 export default class SessionController {
-    private readonly _startRoute = "/session"
 	private readonly _appCtxt: AppContext
 	private readonly _userSvc: UserService
 
@@ -12,7 +11,7 @@ export default class SessionController {
         this._userSvc = userSvc
 
         this._appCtxt.router
-            .route(`${this._startRoute}`)
+            .route("/session")
             .post((req, res) => {
                 this._login(req, res)
             })

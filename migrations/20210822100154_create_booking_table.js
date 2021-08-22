@@ -2,12 +2,12 @@
 exports.up = function(knex) {
     return knex.schema
         .createTable('booking', function(table) {
-            table.integer('id').primary();
-            table.integer('room_id').notNullable();
-            table.integer('user_id').notNullable();
-            table.integer('meeting_time').notNullable();
-            // table.foreign('user_id').references('id').inTable('user').onUpdate('NO ACTION').onDelete('CASCADE');
-            // table.foreign('room_id').references('id').inTable('meeting_room').onUpdate('NO ACTION').onDelete('CASCADE');
+            table.increments('id');
+            table.string('name', 255).notNullable();
+            table.timestamp('time_start', { useTz: false }).notNullable();
+            table.timestamp('time_end', { useTz: false }).notNullable();
+            table.integer('user_id').unsigned().references('id').inTable('user').onUpdate('NO ACTION').onDelete('CASCADE').notNullable();
+            table.string('room_id').unsigned().references('name').inTable('meeting_room').onUpdate('NO ACTION').onDelete('CASCADE').notNullable();
         })
 };
 

@@ -17,7 +17,7 @@
       </v-card>
     </v-col>
     <v-col v-if="selectedRoom" cols="12" sm="12" md="8">
-      <calendar />
+      <calendar :room-id="selectedRoom" />
     </v-col>
   </v-row>
 </template>

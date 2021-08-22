@@ -1,6 +1,8 @@
 import AppContext from "./AppContext"
+import BookingController from "./controllers/BookingController"
 import RoomController from "./controllers/RoomController"
 import SessionController from "./controllers/SessionController"
+import BookingService from "./services/BookingService"
 import RoomService from "./services/RoomService"
 import UserService from "./services/UserService"
 
@@ -9,10 +11,12 @@ const ctx = new AppContext()
 // Services
 const userSvc = new UserService(ctx)
 const roomSvc = new RoomService(ctx)
+const bookingSvc = new BookingService(ctx)
 
 // Controllers
 const sessionCtrl = new SessionController(ctx, userSvc)
 const roomCtrl = new RoomController(ctx, roomSvc)
+const bookingCtrl = new BookingController(ctx, bookingSvc)
 
 ctx.router.get("/", (req, res) => {
 	res.json({ success: true, message: "app is running !", data: null })

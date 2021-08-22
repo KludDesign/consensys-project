@@ -28,23 +28,38 @@ export default class Calendar extends Vue {
   private events: any = []
   private startEvent: string = ""
   private endEvent: string = ""
+  private name: string = ""
+  private color: string = ""
   private colaDay: Date = new Date("2021-09-10")
+
+  @Prop({ type: String, default: "" })
+	readonly roomId!: string
 
   startTime(tms: any) {
     this.startEvent = `${tms.date} ${tms.hour}:00`
     this.endEvent = `${tms.date} ${tms.hour + 1}:00`
+    this.name = `Booked by: ${this.$store.getters.user.first_name.toUpperCase()} ${this.$store.getters.user.last_name.toUpperCase()}`
+    this.color = '#00BCD4'
 
     const isSameEvent = this.events.find((ev: any) => ev.start === this.startEvent)
 
     if (!isSameEvent) {
       const createEvent = {
-        name: `Booked by: ${this.$store.getters.user.first_name.toUpperCase()} ${this.$store.getters.user.last_name.toUpperCase()}`,
-        color: '#00BCD4',
-        start: `${tms.date} ${tms.hour}:00`,
-        end: `${tms.date} ${tms.hour + 1}:00`
+        name: this.name,
+        color: this.color,
+        start: this.startEvent,
+        end: this.endEvent
       }
 
       this.events.push(createEvent)
+
+      this.$api.booking.create(
+        this.name,
+        new Date(this.startEvent),
+        new Date(this.endEvent),
+        this.$store.getters.user.id,
+        this.roomId
+      )
     }
   }
 
