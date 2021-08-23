@@ -21,7 +21,7 @@ export default class BookingController {
             })
         
         this._appCtxt.router.get("/booking/all/:roomId", (req, res) => {
-            this._getBookingList(req, res)
+            this._getBookingListByRoom(req, res)
         })
 	}
 
@@ -46,7 +46,7 @@ export default class BookingController {
 		}
 	}
 
-    private async _getBookingList(req: express.Request, res: express.Response): Promise<void> {
+    private async _getBookingListByRoom(req: express.Request, res: express.Response): Promise<void> {
         try {
             const roomId = req.params.roomId
 

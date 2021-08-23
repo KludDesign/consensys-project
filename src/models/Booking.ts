@@ -1,5 +1,5 @@
 
-export default class User {
+export default class Booking {
 	static readonly tableName = "booking"
 
 	id: number = 0

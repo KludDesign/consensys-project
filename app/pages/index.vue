@@ -25,6 +25,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import Calendar from "../components/Calendar.vue"
+import IRoom from "../interfaces/IRoom"
 
 @Component({
 	name: "Index",
@@ -33,14 +34,14 @@ import Calendar from "../components/Calendar.vue"
   }
 })
 export default class Index extends Vue {
-  private items = []
+  private items: IRoom[] = []
   private selectedRoom = ""
 
-  async mounted() {
+  private async mounted(): Promise<void> {
     await this.getAllRooms()
   }
 
-  async getAllRooms() {
+  private async getAllRooms(): Promise<void> {
     const rooms = await this.$api.room.getAllRooms()
     this.items = rooms.data
   }

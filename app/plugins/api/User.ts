@@ -1,5 +1,6 @@
 import IHttp from "./IHttp"
 import { AxiosInstance } from "axios"
+import IUser from "../../interfaces/IUser"
 
 export default class User {
 	private _http: AxiosInstance
@@ -8,7 +9,7 @@ export default class User {
         this._http = http
     }
 
-	public getUserByToken(): Promise<IHttp<any>> {
+	public getUserByToken(): Promise<IHttp<IUser>> {
 		return this._http.get("/session")
 	}
 }

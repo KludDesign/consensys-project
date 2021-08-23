@@ -39,7 +39,7 @@ export default class Login extends Vue {
       password: ""
     }
 
-	private async userLogin() {
+	private async userLogin(): Promise<void> {
 		try {
 			const response = await this.$auth.loginWith('cookie', { data: this.user })
 
