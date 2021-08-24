@@ -6,6 +6,7 @@
         type="day"
         v-model="colaDay"
         ref="calendar"
+        :event-ripple="false"
         :events="events"
         @mousedown:event="deleteEvent"
         @mousedown:time="startTime"
@@ -45,7 +46,7 @@ export default class Calendar extends Vue {
     this.fetchBookingList()
   }
 
-  private startTime(tms: any): void {    
+  private async startTime(tms: any): Promise<void> {    
     this.startEvent = `${tms.date} ${tms.hour}:00`
     this.endEvent = `${tms.date} ${tms.hour + 1}:00`
     this.name = `Booked by: ${this.$store.getters.user.first_name.toUpperCase()} ${this.$store.getters.user.last_name.toUpperCase()}`
@@ -53,28 +54,24 @@ export default class Calendar extends Vue {
     const isSameEvent = this.events.find((ev: any) => ev.start === this.startEvent)
 
     if (!isSameEvent) {
-      const createEvent = {
-        name: this.name,
-        color: this.color,
-        start: this.startEvent,
-        end: this.endEvent
-      }
-
-      this.events.push(createEvent)
-
       // Create in the DB
-      this.$api.booking.create(
+      await this.$api.booking.create(
         this.name,
         new Date(this.startEvent),
         new Date(this.endEvent),
         this.$store.getters.user.id,
         this.roomId
       )
+
+      await this.fetchBookingList()
     }
   }
 
-  private deleteEvent(value: any): void {
-    console.log("delete");
+  private async deleteEvent(value: any): Promise<void> {
+    if (this.$store.getters.user.id === value.event.user_id) {
+      await this.$api.booking.delete(value.event.event_id)
+      await this.fetchBookingList()
+    }
   }
 
   private async fetchBookingList(): Promise<void> {
@@ -83,6 +80,8 @@ export default class Calendar extends Vue {
 
     bookingList.data.forEach((booking: IBooking) => {
       events.push({
+        event_id: booking.id,
+        user_id: booking.user_id,
         name: booking.name,
         color: this.defineColor(booking.user_id),
         start: this.concatEventDate(new Date(booking.time_start)),
@@ -98,7 +97,7 @@ export default class Calendar extends Vue {
   }
 
   private concatEventDate(date: Date): string {
-    return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${date.getDate()} ${date.getHours() + 2}:00`
+    return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${date.getDate()} ${date.getHours()}:00`
   }
 }
 </script>

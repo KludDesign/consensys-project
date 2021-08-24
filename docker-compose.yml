@@ -18,7 +18,7 @@ services:
       DATABASE_URL: postgres://postgres:1234@db:5432/consensys
       VIRTUAL_HOST: cola.localhost
       LETSENCRYPT_HOST: cola.localhost
-    command: bash -c "npm i -g knex && npm run build && npm run nuxt-generate && knex seed:run && npm run server-run"
+    command: bash -c "npm i -g knex && npm run build && npm run nuxt-generate && knex seed:run && npm run dev"
 
   db:
     image: postgres
