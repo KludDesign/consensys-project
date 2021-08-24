@@ -1,0 +1,7 @@
+version: '3.5'
+services:
+  app:
+    command: bash -c "npm i -g knex && npm i && npm run build && npm run nuxt-generate && knex seed:run && npm run server-run"
+    environment:
+      VIRTUAL_HOST: cola.klud-design.com
+      LETSENCRYPT_HOST: cola.klud-design.com

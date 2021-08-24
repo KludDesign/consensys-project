@@ -19,7 +19,7 @@ const roomCtrl = new RoomController(ctx, roomSvc)
 const bookingCtrl = new BookingController(ctx, bookingSvc)
 
 ctx.router.get("/", (req, res) => {
-	res.json({ success: true, message: "app is running !", data: null })
+	res.json({ success: true, message: "app is running !!!", data: null })
 })
 
 // Check if knex is running

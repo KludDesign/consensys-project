@@ -12,19 +12,19 @@ export default class AppContext {
 	public readonly hostname: string
 	public readonly db: Knex
 
-	constructor(port: number = 8080, hostname: string = "localhost") {
-		this.isLocal = process.env.NODE_ENV !== undefined && process.env.NODE_ENV === "development"
+	constructor() {
         dotenv.config() // Init dotenv
+		this.isLocal = process.env.NODE_ENV !== undefined && process.env.NODE_ENV === "development"
 
-        this.port = port
-        this.hostname = hostname
+        this.port = 8080
+        this.hostname = this.isLocal ? "localhost" : "0.0.0.0"
 
         this.app = express()
         this.router = express.Router()
 		this._setupExpress()
 
 		// Knex configs
-		const knexOpts = knexFile["development"]
+		const knexOpts = knexFile[this.isLocal ? "development" : "production"]
 		this.db = knex(knexOpts)
 	}
 

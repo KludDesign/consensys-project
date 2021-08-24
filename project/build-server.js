@@ -6,11 +6,11 @@ const knexfile = require('./knexfile');
 
 const isLocal = process.env.NODE_ENV === 'development';
 const isWatching = process.argv[2] === '--watch';
-const knexEnv = 'development';
+const knexEnv = process.env.NODE_ENV;
 
 const PATHS = {
     src: path.join(__dirname, 'src'),
-    dist: path.join(__dirname, 'dist/server')
+    dist: path.join(__dirname, 'dist')
 }
 
 // Webpack configuration
@@ -28,7 +28,7 @@ const webpackConfig = [{
     },
 
     output: {
-        filename: isLocal ? '[name].bundle.js' : '[name].bundle.min.js',
+        filename: '[name].bundle.js',
         path: PATHS.dist,
     },
 

@@ -1,0 +1,37 @@
+version: '3.5'
+services:
+  app:
+    container_name: consensys
+    image: node:12.22.3
+    restart: always
+    depends_on:
+      - db
+    networks: 
+      - nginx_network
+    working_dir: /app
+    volumes:
+      - ./project:/app
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgres://postgres:1234@db:5432/consensys
+      VIRTUAL_HOST: cola.localhost
+      LETSENCRYPT_HOST: cola.localhost
+    command: bash -c "npm i -g knex && npm run build && npm run nuxt-generate && knex seed:run && npm run server-run"
+
+  db:
+    image: postgres
+    restart: always
+    networks: 
+      - nginx_network
+    environment:
+      POSTGRES_PASSWORD: '1234'
+      POSTGRES_USER: 'postgres'
+    volumes:
+      - ./db:/data/db
+      - ./sql/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
+
+networks:
+  nginx_network:
+    external: true

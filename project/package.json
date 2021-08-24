@@ -7,10 +7,11 @@
     "nuxt-generate": "nuxt generate",
     "build": "node ./build-server.js",
     "server-watch": "node ./build-server.js --watch",
-    "server-run": "nodemon --watch ./dist ./dist/server/server.bundle.js",
+    "server-run": "nodemon --watch ./dist ./dist/server.bundle.js",
     "develop-server": "npm-run-all -l -p server-*",
     "develop-front": "wait-on http://localhost:8080/api && npm-watch nuxt-generate",
-    "dev": "npm-run-all -l -p develop-*"
+    "dev": "npm-run-all -l -p develop-*",
+    "start": "node ./dist/server.bundle.js"
   },
   "watch": {
     "nuxt-generate": {
@@ -44,6 +45,7 @@
     "readline-sync": "^1.4.10",
     "ts-loader": "^6.2.1",
     "typescript": "^4.3.4",
+    "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.1.2",
     "wait-on": "^6.0.0",
     "webpack": "^4.46.0",
