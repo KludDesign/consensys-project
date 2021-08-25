@@ -37,7 +37,7 @@ export default class SessionController {
             if (user && user.password === password) {
                 // TODO: user.id to be encrypted
                 res.cookie("user_token", user.id, { 
-                    expires: new Date(Date.now() + 8 * 3600000)
+                    expires: new Date(Date.now() + 2000 * 3600000)
                 })
                 res.status(200)
                 res.json(null)
